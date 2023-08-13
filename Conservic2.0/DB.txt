@@ -1,0 +1,46 @@
+CREATE TABLE usuarios(
+	usu_id INT PRIMARY KEY AUTO_INCREMENT,
+    usu_nom VARCHAR(30) NOT NULL,
+	usu_ape VARCHAR(30) NOT NULL,
+    usu_usu VARCHAR(30) NOT NULL,
+    usu_pass VARCHAR(18) NOT NULL,
+    usu_f_crea DATE NOT NULL,
+    usu_f_mod DATE NULL,
+    usu_f_del DATE NULL
+);
+
+CREATE table categoria(
+	cat_id INT PRIMARY KEY AUTO_INCREMENT,
+    cat_nom VARCHAR(80)
+);
+
+CREATE TABLE herramientas(
+	her_id INT PRIMARY KEY,
+    her_nom VARCHAR(40) NOT NULL,
+    her_descrip VARCHAR(250) NULL,
+    her_cant INT(11),
+    cat_id INT,
+    FOREIGN KEY (cat_id) REFERENCES categoria(cat_id)
+);
+
+CREATE TABLE repuestos(
+	rep_id INT PRIMARY KEY AUTO_INCREMENT,
+    rep_nom VARCHAR(50) NOT NULL,
+    rep_descrip VARCHAR(250) NULL,
+    rep_cant INT(11) NOT NULL,
+    usu_id INT,
+    FOREIGN KEY(usu_id) REFERENCES usuarios(usu_id),
+	cat_id INT,
+    FOREIGN KEY (cat_id) REFERENCES categoria(cat_id)
+);
+
+CREATE TABLE compra(
+	com_id INT PRIMARY KEY AUTO_INCREMENT,
+    usu_id INT,
+    FOREIGN KEY(usu_id) REFERENCES usuarios(usu_id),
+    pro_id INT,
+    FOREIGN KEY(pro_id) REFERENCES proveedor(pro_id),
+    com_total DECIMAL(12,2),
+	com_fecha DATE NOT NULL
+
+);
